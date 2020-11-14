@@ -1,0 +1,72 @@
+#####APRENDENDO A COMITAR NO GIT ####
+username: d-paola
+pasword:Eutel
+#INSTALE O GIT PELO AMOR DE DEUS  (https://git-scm.com/download)
+
+####PARA INTEGRAR A VERS?O LOCAL DE UM NOVO PROJETO COM O GIT HUB###
+
+#NO GIT HUB CLIQUE EM  "new repository"
+# PREENCHA OS DADOS, DEFINA OS ACESSOS (PUBLICO OU PRIVADO) E CRIE O REPOSITORIO
+
+#DEPOIS DE CRIADO O REPOSITORIO, V? EM "your repositories"
+#clique em "code" E  COPIE O LINK
+
+###AGORA, NO TERMINAL DO GIT####
+
+#PARA INICIAR O VERSIONAMENTO LOCAL
+
+#    git init 
+
+#EM SEGUIDA, PARA ADICIONAR OS ARQUIVOS OU REPOSITORIOS A SEREM VERSIONADOS 
+#    git add
+
+#EM SEGUIDA, PARA COMITAR
+#     git commit -m "ESCREVA AQUI A  DESCRI??O DO COMMIT"
+
+#PARA ENVIAR OS ARQUIVOS PARA A VERS?O REMOTA (QUE ? O GIT HUB)
+
+#     git push origin  NOME DA BRANCH (MASTER)
+
+
+#PARA COMITAR NOVAS ALTERA??ES
+
+#POSSO SIMPLISMENTE COMITAR TODOS OS ARQUIVOS DE UMA VEZ S?, OU SEPARADAMENTE,
+#ASSIM, ? POSSIVEL ADICIONAR NOVAS DESCRI??ES AOS COMMITs, ARQUIVO POR ARQUIVO
+
+#PARA COMMITAR TODOS DE UMA VEZ
+#  git add .
+
+#git commit -m "ESCREVA AQUI A  DESCRI??O DO COMMIT"
+
+
+#PARA COMMITAR SEPARADAMENTE
+# git add (nome do arquivo)
+# exemplo:  git add DATAFRAME.R
+#git commit -m "ESCREVA AQUI A  DESCRI??O DO COMMIT"
+
+
+#PARA ENVIAR OS ARQUIVOS PARA A VERS?O REMOTA (QUE ? O GIT HUB)
+
+#git push origin  NOME DA BRANCH (MASTER)
+
+#COM ESTE COMANDO, TUDO O QUE ESTIVER COMITADO ELE IR? ENVIAR
+
+
+
+
+#PARA ABRIR UM PROJETO DO GIT EM OUTRO PC
+
+# INSTALE O GIT PELO AMOR DE DEUS (https://git-scm.com/download)
+
+#Com o seu login e senha, acesse o GIThub (https://github.com/),
+#v? no projeto que deseja usar, clique em "code",
+# e copie o link do projeto desejado
+
+#NA NOVA MAQUINA QUE VOCE EST? UTILIZANDO AGORA, V? NA PASTA ONDE VOCE DESEJAR 
+#BAIXAR OS ARQUIVOS (CLIQUE COM O BOT?O DIREITO, open with GIT BASH HERE)
+#O TERMINAL SER? ABERTO, E EM SEGUIDA VOCE DEVER? DIGITAR
+
+# git clone (e o link do projeto que voce copiou no github)
+#EXEMPLO:  git clone https://github.com/d-paola/aulas-r.git
+
+

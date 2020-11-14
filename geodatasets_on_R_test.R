@@ -1,30 +1,41 @@
 ##### Usando Geo datasets on R
 
 
-#### SCRIPT 11-11-20 / 18:50
+################################################
+#  Script Original por Daniela Paola           #
+#  Para checar o trabalho dela acesse o git:   #
+#  https://github.com/d-paola                  #
+################################################
+
+#Que comecem os jogos.
 
 
-
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
 #----------------Preparando as bibliotecas que iremos usar---------------------
+
+#Instalando o Bioconductor manager se necessário
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+
+  install.packages("BiocManager")
+
+}
+  
+# Instalando os pacotes necessários do Bioconductor, Descomente se for a sua primeira vez 
+
+#BiocManager::install("BioBase")
+#BiocManager::install("edgeR")
+#BiocManager::install("GEOquery")
 
 
 library(Biobase)
 library(GEOquery)
 library(edgeR)
 
-# Para instalar algum package do biocondutor 
-
-if (!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-
-BiocManager::install("GEOquery")
-
 ##----------------- Passo 1: obter os dados genicos-----------------------------
 
 # Este comando vai gerar um arquivo tipo Large list, contendo todas as informa-
 # cões e dados inerentes ao GSE estudado.
+
+# GSE42023 Refere-se ao banco de "Genome wide expression profiling of anterior tongue cancer with no history of tobacco and alcohol use"
 
 GSE42023 <- getGEO("GSE42023")
 
@@ -40,16 +51,15 @@ exp_Data <- GSE42023[[1]]
 
 exp_Data
 
-
 ##----- --------------Passo 2 obter os dados de expressão-----------------------
 
 
 # este comando vai gerar  um data frame com os dados de expressao genica,
 # sendo as linhas, os genes e as colunas os samples
 
-expression_data <- as.data.frame(exprs(exp_Data))  #salva como DF
+# expression_data <- as.data.frame(exprs(exp_Data))  salva como Data Frame
 
-expression_data <- (exprs(exp_Data))               # salva como Matrix
+expression_data <- (exprs(exp_Data))               # salva como Matriz
 
 dim(expression_data)
 

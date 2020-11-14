@@ -10,4 +10,4 @@ Este Repositório contém materais utilizado para aprendizagem de R para bioinfo
 2. Scripts em R para exemplificação;
 3. Scripts de outros desenvolvedores para ajudar a entender as ferramentas.
 
-Repositório original pertence a [Daniela Paola] (https://github.com/d-paola)
+Repositório original pertence a [Daniela Paola](https://github.com/d-paola)

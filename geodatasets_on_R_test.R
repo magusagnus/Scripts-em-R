@@ -13,6 +13,7 @@
 #----------------Preparando as bibliotecas que iremos usar---------------------
 
 #Instalando o Bioconductor manager se necessário
+
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
 
   install.packages("BiocManager")
@@ -35,7 +36,8 @@ library(edgeR)
 # Este comando vai gerar um arquivo tipo Large list, contendo todas as informa-
 # cões e dados inerentes ao GSE estudado.
 
-# GSE42023 Refere-se ao banco de "Genome wide expression profiling of anterior tongue cancer with no history of tobacco and alcohol use"
+# GSE42023 Refere-se ao banco de "Genome wide expression profiling of anterior
+#tongue cancer with no history of tobacco and alcohol use"
 
 GSE42023 <- getGEO("GSE42023")
 
@@ -125,6 +127,7 @@ group
 supp_data <- getGEOSuppFiles("GSE42023")
 
 # gerando um dataframe com informações dos dados suplementares
+
 rownames(supp_data) <- basename(rownames(supp_data))
 
 supp_data
@@ -167,12 +170,23 @@ colnames(raw_data_edited) <- c("Species","Source","Search_Key","Transcript",
 exprs_non_normalized <- GSE42023_non_normalized
 
 exprs_non_normalized <- as.matrix(exprs_non_normalized)
-
+exprs_non_normalized <- 
+  
+  
 write.table(exprs_non_normalized,"expressao_dadosbrutos",sep = "\t")
-exprs_normalized_by_me <- calcNormFactors(exprs_non_normalized)
+
+write.table(raw_data_edited,"raw_data",sep = "\t")
+---------------------------------------------------------------------------------
+
 
 library(limma)  
 --------------------------------------------------------------------------------
+#           16/11/2020  
+
+  
+# tentando normalizar os dados brutos
+  
+  
   
   
   
@@ -200,16 +214,6 @@ library(limma)
 
 
 
-  
-as.matrix(raw_data)  
- eData [,1:22]   #todas as linhas, e todas as colunas
-   
-GenewiseCounts <- read.delim("GPL6883_HumanRef.8_V3_0_R0_11282963_A",
-                                 row.names="EntrezGeneID")
-> colnames(GenewiseCounts) <- substring(colnames(GenewiseCounts),1,7)
-> dim(GenewiseCounts) 
-  
-  
   
   
 
@@ -234,22 +238,6 @@ GenewiseCounts <- read.delim("GPL6883_HumanRef.8_V3_0_R0_11282963_A",
 
 
 
-
-
-library(edgeR)
-
-
-
-
-
-
-
-y<- DGEList(expression_data,group = group, genes = expression_data[ ,1,drop=TRUE])
-
-y<- DGEList(expression_data,group=group, genes= expression_data[ ,1,drop=FALSE])
-
-y<-
-options(digits = 3)
 
 
 

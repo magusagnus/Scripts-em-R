@@ -125,24 +125,37 @@ group
 library(illuminaio)
   
 my_idat_files <- paste("/home/daniela/GSE42023/GPL6883_HumanRef8_V3_0_R0_11282963_A.bgx")
+
 bgxfile <-my_idat_files
 bgx <-readBGX(bgxfile)
 
 --------------------------------------------------------------------------------
 # TRANSFORMANDO OS ARQUIVOS BRUTOS EM Elist
  
+library(limma)
 
-raw_data <-list('ElistRaw')
-raw_data@Data [[1]] <- 'illumina'
-raw_data@Data [[2]] <- clin_data
-raw_data@Data [[3]]  <-bgx
-raw_data@Data [[4]]  <- non_normalized_data
-raw_data@Data [[5]]  <-NULL
+raw_data <- new("EList",raw_data)
+raw_data@.Data [[1]] <- 'illumina'
+raw_data@.Data [[2]] <- clin_data
+raw_data@.Data [[3]]  <-bgx
+raw_data@.Data [[4]]  <- non_normalized_data
+raw_data@.Data [[5]]  <-NULL
 
 raw_data$E <- non_normalized_data
 raw_data$targets <- cbind(clin_data$description,clin_data$group)
-raw_data$genes <-bgx
-raw_data$other$Detection <- non_normalized_pvalued
+project$genes <-bgx
+project$other$Detection <- non_normalized_pvalued
+
+
+
+
+
+
+
+
+
+
+
 
 --------------------------------------------------------------------------------
   Background correction / normalisation

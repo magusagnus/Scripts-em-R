@@ -2,7 +2,7 @@
 
 #teste
 
-#livrarias
+#library
 
 library(Biobase)
 library(GEOquery)
@@ -44,24 +44,39 @@ tarArchive
 
   # defina o diretório de onde deseja extrair o arquivo
 
-  setwd("/home/daniela/GSE42023")   
+  setwd("/home/daniela/Área de Trabalho/R_GIT_HUB/Scripts-em-R/GSE42023/testes")   
 
 # extraindo o arquivo
 
 require(data.table)
-non_normalized_data <- read.table("GSE42023_non_normalized.txt",
-                                  sep = '\t',header = TRUE)
-non_normalized_data <- as.matrix(non_normalized_data)  
+
+#Apenas dados de expressão (exclui manualmente as colunas p_valor)
+
+non_normalized_counts <- read.table("GSE42023_non_normalized (scan).csv",
+                                    sep = ',',header = TRUE)
+
+non_normalized_counts <- as.matrix(non_normalized_counts)  
+
 show(non_normalized_data) 
 
 
+# p_valor de detecção  (exclui manualmente as colunas de expressão)
 
-# editei externamente a tabela, mantendo apenas o p_valor de detecção
+non_normalized_pvalue <- read.table("GSE42023_non_normalized (p_value).csv",
+                                  sep = ',',header = TRUE)
 
-non_normalized_pvalued <- read.csv("GSE42023_non_normalized_PVALUEDET.csv",
-                                   sep = '\t',header = TRUE)
+non_normalized_pvalue <- as.matrix(non_normalized_pvalue)
+# é preciso setar a coluna ID_REF como rownames
 
-non_normalized_pvalued <- as.matrix(non_normalized_pvalued)
+row.names(non_normalized_counts) <- non_normalized_counts$X
+
+row.names(non_normalized_pvalue) <- non_normalized_pvalue$X
+
+# em seguida, excluir a coluna ID_REF
+non_normalized_counts$X <- NULL
+non_normalized_pvalue$X <- NULL
+
+
 --------------------------------------------------------------------------------
   
   #----- criando a matriz target ( dados de design e grupos)-----------------
@@ -124,9 +139,10 @@ group
 
 library(illuminaio)
   
-my_idat_files <- paste("/home/daniela/GSE42023/GPL6883_HumanRef8_V3_0_R0_11282963_A.bgx")
+my_idat_files <- paste("/home/daniela/Área de Trabalho/R_GIT_HUB/Scripts-em-R/GSE42023/GPL6883_HumanRef-8_V3_0_R0_11282963_A.bgx")
 
 bgxfile <-my_idat_files
+
 bgx <-readBGX(bgxfile)
 
 --------------------------------------------------------------------------------
@@ -134,44 +150,59 @@ bgx <-readBGX(bgxfile)
  
 library(limma)
 
-raw_data <- new("EList",raw_data)
+raw_data <- " "
+raw_data <- new("EListRaw",raw_data)
 raw_data@.Data [[1]] <- 'illumina'
 raw_data@.Data [[2]] <- clin_data
 raw_data@.Data [[3]]  <-bgx
-raw_data@.Data [[4]]  <- non_normalized_data
+raw_data@.Data [[4]]  <- non_normalized_counts
 raw_data@.Data [[5]]  <-NULL
 
-raw_data$E <- non_normalized_data
+raw_data$E <- non_normalized_counts
 raw_data$targets <- cbind(clin_data$description,clin_data$group)
-project$genes <-bgx
-project$other$Detection <- non_normalized_pvalued
-
-
-
-
-
-
-
-
-
-
-
+raw_data$genes <-bgx
+raw_data$other$Detection <- non_normalized_pvalue
 
 --------------------------------------------------------------------------------
-  Background correction / normalisation
-project.bgcorrect.norm <- neqc(project, offset = 16)
+  
+
+#20:46 TESTE2
+--------------------------------------------------------------------------------
+#Background correction / normalisation
+
+library(limma)
+
+raw_data.bgcorrect.norm <-neqc(raw_data, offset = 16) # recomendado pelo professor travis gordon
+
+
+raw_data.bgcorrect.norm <-neqc(raw_data, offset = 16)
 
 --------------------------------------------------------------------------------
-  filter out control probes, those with no symbol, and those that failed
+#############3 não deu certo=================================================
 
-Control <- project.bgcorrect.norm$genes$Source=="ILMN_Controls"
-NoSymbol <- project.bgcorrect.norm$genes$Symbol == ""
-isexpr <- rowSums(detectionpvalues <= 0.05) >= 3
+#filter out control probes, those with no symbol, and those that failed
+
+
+Control <- raw_data.bgcorrect.norm$genes$controls=="ILMN_Controls"
+
+NoSymbol <- raw_data.bgcorrect.norm$genes$probes == " "
+
+isexpr <- rowSums(non_normalized_pvalue <= 0.05) >= 3
+
+raw_data.bgcorrect.norm.filt <-raw_data.bgcorrect.norm[!Control & !NoSymbol & isexpr, ]
+
 project.bgcorrect.norm.filt <- project.bgcorrect.norm[!Control & !NoSymbol & isexpr, ]
 dim(project.bgcorrect.norm)
 dim(project.bgcorrect.norm.filt)
 
+dim(teste)
 
+
+table(Control)
+table(NoSymbol)
+table(isexpr)
+
+=================================================================================
 summarise across genes by mean
 # ID is used to identify the replicates
 project.bgcorrect.norm.filt.mean <- avereps(project.bgcorrect.norm.filt,

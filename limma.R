@@ -133,12 +133,12 @@ Limma contém alguns métodos de normalização mais sofisticados. Em particular
                     ######################################
 
 
-Esta seção explora alguns dos métodos disponíveis para normalização entre matrizes de duas cores.  
+Esta seção eplora alguns dos métodos disponíveis para normalização entre matrizes de duas cores.  
 
 Um recurso que distingue a maioria desses métodos da normalização dentro da matriz é o enfoque 
 nos valores individuais de intensidade de vermelho e verde, e não apenas nas relações logarítmicas.
 
-Estes métodos podem, portanto, ser chamados de canais individuais ou métodos de normalização de canais separados.
+Estes métodos podem, portantox, ser chamados de canais individuais ou métodos de normalização de canais separados.
 A normalização de canal individual é normalmente um pré-requisito para métodos de análise de canal individual como o fornecido por 'lmscFit ()'.
 
 > load("Apoa1.RData")
@@ -159,7 +159,7 @@ vermelhos individuais
 em todas as matrizes. Sem qualquer normalização, há uma variação considerável entre os dois canais
 e entre matrizes:
   
->plotDensities(RG.b)
+> plotDensities(RG.b)
 
 
 Após a normalização de loess dos valores M para cada matriz, as distribuições de

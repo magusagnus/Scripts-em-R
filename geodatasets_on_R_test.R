@@ -49,13 +49,13 @@ names(GSE42023)
 #será necessario transformar o arquivo large.list, em um arquivo expression list,
 #usaremos portanto, o seguinte comando
 
-exp_Data <- GSE42023[[1]]
+GSE42023 <- GSE42023[[1]]
 
 exp_Data
 
 ##----- --------------Passo 2 obter os dados de expressão-----------------------
 
-
+                      #process data
 # este comando vai gerar  um data frame com os dados de expressao genica,
 # sendo as linhas, os genes e as colunas os samples
 
@@ -244,14 +244,3 @@ library(limma)
 
 
 
-
-##----- Passo 4: Anotar os Dados
-
-
-
-
-
-
-##---- Passo 5:
-
-##-----Passo 6:

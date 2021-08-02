@@ -14,6 +14,7 @@ gbm.data <- getFirehoseData(dataset = "GBM",
                             fileSizeLimit = 10000)
 
 #Pega os dados que foram baixados acima
-gbm.mut <- getData(gbm.data,"Mutations")
-gbm.clin <- getData(gbm.data,"Clinical") 
+gbm.mut <- getData(gbm.data,"Mutation")
+gbm.clin <- getData(gbm.data,"clinical") 
 gbm.gistic <- getData(gbm.data,"GISTIC")
+
